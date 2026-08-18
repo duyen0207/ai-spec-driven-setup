@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ai-spec-driven-setup/meta.schema.json",
+  "title": "feature meta.yml",
+  "description": "Contract for every specs/features/<ID>/meta.yml. STRUCTURAL only — enum values (domain/status/repo) are validated by `specs.mjs check` against spec.config.json, NOT hard-coded here. A feature is a living capability, not a task.",
+  "type": "object",
+  "required": ["id", "app", "title", "status", "origin", "acceptance_stage"],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "description": "== folder name. [DOMAIN]-<slug>. Identifies a CAPABILITY, not a task. No ticket key in the ID." },
+    "app": { "type": "string", "pattern": "^app-[a-z0-9-]+$" },
+    "domain": { "type": "string", "description": "From spec.config.json.domains (if that list is non-empty). The feature ID must start with it." },
+    "title": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "description": "One of spec.config.json.statuses." },
+    "origin": {
+      "type": "string",
+      "enum": ["reverse-engineered", "folded", "spec-first"],
+      "description": "WHO created this feature. 'reverse-engineered' = written directly by reverse-spec from existing production code. 'folded' = created when an Add-change shipped (archive). 'spec-first' = legacy/manual. These are the only legitimate writers of features/."
+    },
+    "acceptance_stage": {
+      "type": "string",
+      "description": "Test-suite maturity: one of spec.config.json.acceptance_stages (e.g. happy|full). Orthogonal to `status`. `check` warns if a shipped feature is still 'happy'."
+    },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low"], "description": "Mostly for reverse-engineered specs — how much to trust it." },
+    "owner": { "type": "string" },
+    "jira_url": { "type": ["string", "null"], "description": "Link to the main/epic ticket, or null." },
+    "created": { "type": "string", "format": "date" },
+    "updated": { "type": "string", "format": "date" },
+    "history": {
+      "type": "array",
+      "description": "Change log, NEWEST FIRST. One line per change that created/altered this capability: 'YYYY-MM-DD · TICKET · what changed'. spec.md holds the CURRENT state; this is the audit trail. `archive` prepends here on fold.",
+      "items": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2} " }
+    },
+    "design": { "type": ["string", "null"], "description": "UI/UX design link (e.g. Figma URL), or null if a local ui file is used instead." },
+    "ui": { "type": ["string", "null"], "description": "Path (relative to this folder) to a local design file the AI can read, e.g. 'ui.html'." },
+    "depends_on": { "type": "array", "items": { "type": "string" }, "description": "Other feature IDs this capability relies on." },
+    "pending_changes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Open changes in flight that target this feature but have NOT shipped. Each points at a change folder, e.g. 'OPCS-142 · changes/Modify-OPCS-142-… · summary'. spec.md still describes the CURRENT state; a change folds in only on archive."
+    },
+    "related_code": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "'<repo>:<path-or-glob>' — repo keys from spec.config.json.repos (if that list is non-empty)."
+    }
+  }
+}

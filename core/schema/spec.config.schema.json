@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ai-spec-driven-setup/spec.config.schema.json",
+  "title": "spec.config.json — per-repo single source of variability",
+  "description": "Every generated <app>-specs/ repo has ONE spec.config.json at its root. The engine (tools/specs.mjs) and every skill read it. Change a domain/status/role here and NOWHERE else (fixes optis' 'edit 3 places' coupling).",
+  "type": "object",
+  "required": ["app", "language", "template", "roles", "statuses", "change_types", "change_statuses", "acceptance_stages"],
+  "additionalProperties": true,
+  "properties": {
+    "app": {
+      "type": "string",
+      "pattern": "^app-[a-z0-9-]+$",
+      "description": "App folder / identity. Uses the app- prefix, e.g. app-checkout."
+    },
+    "language": {
+      "type": "string",
+      "description": "Output language the skills WRITE specs/docs in (e.g. 'vi' | 'en'). Skills & rules are authored in English; this controls generated content."
+    },
+    "template": {
+      "type": "string",
+      "description": "Which template this repo was generated from, pinned by version: '<name>@<semver>', e.g. 'default@1.0.0'. Enables a future update/migration path."
+    },
+    "roles": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The roles that own files / drive the status lifecycle, e.g. ['ba','dev','tester']. Rules & templates must NOT hard-code role names — read them from here."
+    },
+    "domains": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Top-level capability categories. A feature ID is [DOMAIN]-<slug>. If non-empty, `check` enforces that every feature ID starts with one of these. Leave [] for free-form IDs."
+    },
+    "statuses": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed feature.meta.status values (spec lifecycle). Ordered draft→live by convention."
+    },
+    "shipped_statuses": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The subset of `statuses` that mean 'code is in production'. `check` warns if such a feature still has acceptance_stage: happy. Default ['implemented','live'].",
+      "default": ["implemented", "live"]
+    },
+    "change_types": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed change.meta.type values. 'Add' creates a feature on fold; the rest patch. Default ['Add','Modify','Remove','Fix']."
+    },
+    "change_statuses": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed change.meta.status values. Default ['proposed','in-dev','merged','archived']."
+    },
+    "acceptance_stages": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed acceptance_stage values (test-suite maturity), orthogonal to status. Default ['happy','full']."
+    },
+    "repos": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Code repo keys a feature may anchor to via related_code '<repo>:<path>'. If non-empty, `check` enforces the prefix."
+    },
+    "helpdoc": {
+      "type": "object",
+      "description": "spec-to-helpdoc output profile.",
+      "properties": {
+        "profile": { "type": "string", "description": "'markdown' (default, portable) | 'gitbook' (phase 2)." }
+      }
+    }
+  }
+}

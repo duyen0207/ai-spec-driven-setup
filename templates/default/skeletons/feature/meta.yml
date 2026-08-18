@@ -1,0 +1,31 @@
+# Machine-readable facts for this feature. Validated by `node tools/specs.mjs check`.
+# See schema/meta.schema.json. A feature is a CAPABILITY (current state), not a task.
+
+id: {{ID}}                       # == folder name; [DOMAIN]-<slug>
+app: {{APP}}
+domain: {{DOMAIN}}               # from spec.config.json.domains (or null if free-form)
+title: {{TITLE}}
+
+status: {{STATUS}}               # one of spec.config.json.statuses
+origin: {{ORIGIN}}               # reverse-engineered | folded | spec-first
+acceptance_stage: {{ACCEPTANCE_STAGE}}   # happy | full — test-suite maturity (orthogonal to status)
+confidence: high                 # high | medium | low (mostly for reverse-engineered)
+
+owner: ""
+jira_url: null
+created: {{DATE}}
+updated: {{DATE}}
+
+# Change log, NEWEST FIRST (this created line stays at the bottom). "YYYY-MM-DD · TICKET · what changed".
+history:
+  - "{{HISTORY_FIRST}}"
+
+design: null                     # UI/UX link (e.g. Figma URL) or null
+ui: null                         # local design file (e.g. ui.html) or null
+
+depends_on: []                   # other feature IDs this relies on
+pending_changes: []              # open changes in flight targeting this feature (added by new-spec, dropped on fold)
+
+# "<repo>:<path-or-glob>" — repo keys from spec.config.json.repos
+related_code:
+  # web:src/...
