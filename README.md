@@ -35,13 +35,25 @@ app-x-specs/                     ← OUTPUT (generated, self-contained, team-own
   specs/features/<ID>/…  specs/changes/…  SPECS_INDEX.md  CHANGES_INDEX.md
 ```
 
-## Install
+## Install (run this first)
+
+After cloning, the skills are **not** usable until they live under a `.claude/skills/` path — Claude only
+auto-discovers skills from `~/.claude/skills/` (personal) or `<workspace>/.claude/skills/` (project-scoped).
+Just `cd`-ing into this repo is **not** enough. Because you run these skills inside each app's own workspace,
+install them personally (global):
 
 ```bash
 git clone <this-repo> ~/ai-spec-driven-setup
-# make the skills discoverable to Claude in any workspace (symlink into your personal skills dir):
+
+# make the skills discoverable to Claude in ANY workspace (symlink into your personal skills dir):
+mkdir -p ~/.claude/skills
 ln -s ~/ai-spec-driven-setup/skills/* ~/.claude/skills/
 ```
+
+This is **additive** — it only adds `init-spec-repo · reverse-spec · new-spec · fold-change · spec-to-helpdoc`
+alongside any skills you already have; it never removes or overwrites them (a same-named skill would just make
+`ln` error out — don't add `-f`). Because they're symlinks, pulling toolkit updates updates the skills too;
+to uninstall, delete just those 5 symlinks. Verify with `ls ~/.claude/skills/`.
 
 (Any Agent-Skills-compatible tool can load `skills/*/SKILL.md` the same way.)
 
