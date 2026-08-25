@@ -79,10 +79,10 @@ cho repo không index hoặc khi hunt text thuần.
 5. **Liệt kê TRỌN event surface (bảng coverage).** Một capability là hợp của **mọi** cách hệ thống tác động lên nó —
    không phải một call tree đi ra từ seed. Trước khi ngừng quét, liệt kê **hết**:
    - route/controller (mọi thao tác admin, không chỉ cái được trỏ);
-   - webhook (install, uninstall, đồng bộ shop/plan…);
+   - webhook / callback từ hệ thống ngoài;
    - cron / scheduled task;
    - queue/event consumer **và event phát ra** (email/marketing, analytics);
-   - metafield / config / feature flag được đọc hay ghi;
+   - config / feature flag / metadata ngoài được đọc hay ghi;
    - script support/ops và console command (seeder, helper sửa tay);
    - entity & cột DB feature sở hữu (mỗi cột thường mã hoá một luật — hỏi "flow nào ghi? flow nào đọc?").
    Giữ **bảng coverage** làm việc: **entry point → nó làm gì → section spec nào sẽ sở hữu**. Một entry point cuối cùng
@@ -163,9 +163,9 @@ file.**
 **`spec.md`** → `rules/spec.md` (chỉ ngôn ngữ nghiệp vụ, phủ trọn vòng đời, flow theo phân khúc). Nghĩa vụ riêng của
 reverse-spec chồng lên rule:
 - **Tiêu thụ bảng coverage của Step 2.** Mỗi entry point (route, webhook, cron, event phát ra, script support, cột DB
-  sở hữu) và mỗi claim doc ở Step 2b phải rơi vào một section spec — dòng còn thừa = lỗ hổng. Phủ thêm, ngoài section
-  gốc của rule: **Thông báo & comms** (mỗi email/banner/toast: trigger + đối tượng + thời điểm) và **Quy trình
-  support/ops** (phần thủ công — hoàn tiền qua support, discount tay…).
+  sở hữu) và mỗi claim doc ở Step 2b phải rơi vào một section spec **theo taxonomy của `rules/spec.md`** — dòng còn
+  thừa = lỗ hổng. (Rule §2 cross-cutting đã bao gồm **thông báo/comms** và **quy trình support/ops thủ công**; dùng
+  đúng các mục đó, đừng tự chế section mới.)
 - Dùng khối `### Requirement: <tiêu đề ổn định>` → `#### Scenario:` (theo `rules/spec.md`) để delta về sau fold được.
 - **Open questions = checklist trung thực** (chế độ reverse-spec của rule): **mọi** suy đoán intent, **mọi** mâu thuẫn
   doc-vs-code, **mọi** config/flag không thấy giá trị live, **mọi** "cố ý hay bug?" → một bullet, viết đúng câu hỏi
@@ -182,6 +182,13 @@ point, call flow, data model, external call & side effect, bản đồ `related_
 bằng bảng Traceability** đầy đủ. Phân biệt **CERTAIN** (có trong code) vs **INFERRED** (suy đoán) — tag `*(inferred)*`
 là đủ.
 
+> **Nếu có sẵn skill `explain-code`, dùng nó để dựng `tech.md`.** Skill này không thuộc toolkit setup — **kiểm tra
+> trước, chỉ dùng nếu nó có** trong môi trường. Nó trace code thật bằng CodeGraph, dựng lại luồng chạy + tư duy kiến
+> trúc và **tách FACT khỏi suy luận** — đúng thứ `tech.md` cần (design overview, call flow, FACT vs `*(inferred)*`).
+> Cách dùng: đưa nó footprint `related_code` + bảng coverage của Step 2 làm phạm vi, rồi **map kết quả vào cấu trúc
+> `rules/tech.md`** (nó viết theo lăng kính "giải thích", còn `tech.md` có mục bắt buộc riêng + phải kết bằng bảng
+> Traceability). **Không có skill này → tự viết `tech.md` theo `rules/tech.md` như trên** (đừng coi nó là dependency).
+
 ## Step 7 — Validate
 
 ```bash
@@ -197,9 +204,9 @@ Cả hai phải pass. Sửa mọi thứ báo lỗi (hay gặp: id≠folder, thi�
 Trước khi hand-off, tấn công bản draft của mình rồi gấp kết quả vào *Open questions* / `confidence`:
 - **Tiêu thụ hết coverage?** Mọi entry point ở Step 2 có một dòng spec; mọi claim doc ở Step 2b đã phân loại
   (confirmed / contradicted / not-in-code). Còn thừa = lỗ hổng.
-- **Quét lại vòng đời:** chạy lại checklist `rules/spec.md` §2 — install/reinstall/uninstall, hành vi lúc mỗi mốc thời
-  gian hết hạn, cancel→reactivate, hoàn tiền, store paused/closed/frozen, input lạ, thông báo, đường support, lưu giữ
-  dữ liệu. Gì chưa trả lời → thành Open question, không im lặng.
+- **Quét lại vòng đời:** chạy lại **toàn bộ** checklist `rules/spec.md` §2 (nó là nguồn duy nhất của danh sách sự kiện
+  vòng đời — đừng dựa vào một danh sách rút gọn ở đây). Mỗi mục áp dụng được mà chưa trả lời → thành Open question,
+  không im lặng.
 - **Đọc-được-bởi-nghiệp-vụ:** `spec.md` còn một path/symbol/số dòng nào không? Có → dời sang bảng traceability của
   `tech.md`. Chạy checklist review của `rules/spec.md`.
 - **Độ phủ:** đã trace *mọi* nhánh và caller, hay chỉ happy path? Caller nào chưa mở?

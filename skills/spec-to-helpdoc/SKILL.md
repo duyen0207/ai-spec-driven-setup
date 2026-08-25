@@ -76,7 +76,7 @@ trong `spec.md`** — không bịa tính năng, không tự chế số liệu.
     3 tuỳ chọn đầu cho gọn gàng, kèm dấu **+N** để bấm xem hết — bạn không phải làm gì thêm."*
   - Spec: *"Watermark chỉ hiện ở gói free; gói trả phí ẩn nó."* → một trang how-to **"Cách gỡ nhãn"** dẫn người dùng
     tới bước nâng gói (biến một *luật gating* thành một *việc người dùng làm được*).
-  - Spec: *"Trình chọn biến thể gốc của theme phải đang bật thì tính năng mới chạy."* → **cảnh báo/bước đầu tiên**
+  - Spec: *"Một tuỳ chọn tiên quyết của nền tảng phải đang bật thì tính năng mới chạy."* → **cảnh báo/bước đầu tiên**
     trong trang how-to: kiểm tra & bật nó trước khi cấu hình.
 
 - **Khuôn theo loại trang** (áp dụng cho mọi profile — chọn khuôn theo mục đích trang, dùng cú pháp của profile để
