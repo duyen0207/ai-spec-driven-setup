@@ -86,6 +86,16 @@ Chọn **một** capability rõ ràng nhất, chắc chắn nhất trong code hi
 dụ mẫu — chạy theo skill `reverse-spec` **bên trong repo mới** (nó là 1 trong 2 writer hợp lệ của `features/`, ghi
 feature trực tiếp với `origin: reverse-engineered`, `status: live`, mọi claim neo về `repo:path`).
 
+**Handoff đúng cách sang `reverse-spec`** (nó vừa được tách thành `steps/`; bạn đã có sẵn ngữ cảnh từ Step 1–2 nên
+đừng để nó hỏi lại):
+- **Anchor:** đưa thẳng capability đã chọn (tên feature + vài entry point/route/file bạn thấy khi suy luận domain) —
+  reverse-spec khỏi phải chạy `AskUserQuestion` của Step 1.
+- **Phủ đủ repo:** dặn nó quét event surface trên **MỌI** repo trong `spec.config.json.repos` (không chỉ repo chứa
+  anchor) — lớp storefront/client hay ở repo khác và dễ bị bỏ sót.
+- **Nguồn tài liệu (doc-hunt):** truyền lại **đúng** chỗ user đã trỏ tài liệu ở Step 1 (nếu có). User **không** nêu
+  tài liệu → nói rõ "không có tài liệu bổ trợ, dựng thuần từ code"; reverse-spec **không được tự đi lục** doc ngoài
+  chỗ đó (ranh giới cứng của `steps/02-doc-hunt.md`).
+
 **CHỈ MỘT — không hơn.** Lý do: nếu domain/config suy luận ở Step 2 hoá ra sai, user sẽ bake lại từ đầu; lúc đó mọi
 capability đã seed đều phải làm lại — seed nhiều chỉ **phí công**. Một ví dụ chất lượng cao đủ để team thấy hình hài
 một feature hoàn chỉnh và tự chạy `reverse-spec` cho phần còn lại sau. Giữ step này nhỏ, high-confidence; đừng seed
