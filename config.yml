@@ -1,0 +1,8 @@
+# ai-spec-driven-setup — toolkit settings (read by the bootstrap skill init-spec-repo).
+# This is TOOLKIT-level config. Per-repo variability lives in each generated repo's spec.config.json.
+
+# Default output language for generated specs/docs when the user doesn't pick one (e.g. en | vi).
+default_language: en
+
+# Default template used by init-spec-repo when the user doesn't pick one. Must exist in templates/catalog.yml.
+default_template: default

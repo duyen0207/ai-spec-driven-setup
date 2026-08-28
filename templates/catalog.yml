@@ -1,0 +1,18 @@
+# Template catalog — the choosable spec-repo blueprints. init-spec-repo shows this list so a user can pick
+# the right one for their app. Add a template = drop a folder in templates/ and add an entry here.
+
+templates:
+  - name: default
+    version: 1.0.0
+    description: >
+      Generic, app-agnostic spec system. One capability = one folder; work is done as changes that fold into
+      features/ on ship. No stack-specific rules.
+    usage: >
+      Any product. Start here unless a more specific template fits. Domains/statuses/roles/repos are set per repo
+      in spec.config.json.
+
+  # ---- phase 2 (not built yet) ----
+  # - name: embed-shopify-app
+  #   version: 0.0.0
+  #   description: Specialised for embedded Shopify apps — rules split in-app (admin) vs storefront, metafield anchors.
+  #   usage: Shopify embedded apps. Adds stack-specific authoring rules on top of the default mechanism.

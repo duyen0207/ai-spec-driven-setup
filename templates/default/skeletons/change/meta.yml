@@ -1,0 +1,17 @@
+# Machine-readable facts for this change. Validated by `node tools/specs.mjs check`.
+# See schema/change.schema.json. A change is a TRACKED delta — safe because it folds into features/ on `archive`.
+
+task_code: {{TASK}}
+type: {{TYPE}}                    # Add creates the target feature on fold; Modify|Remove|Fix patch it
+title: {{TITLE}}
+status: in-dev                   # one of spec.config.json.change_statuses
+acceptance_stage: {{STAGE}}      # happy | full — maturity of THIS change's acceptance
+
+owner: ""
+jira_url: null
+created: {{DATE}}
+
+# Target feature ID(s) this change folds into (created if type Add, patched otherwise).
+# Each must appear as a "## <FEATURE-ID>" block in spec.md.
+depends_on:
+{{TARGETS_YAML}}

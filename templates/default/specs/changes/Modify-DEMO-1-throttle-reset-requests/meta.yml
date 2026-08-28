@@ -1,0 +1,14 @@
+# Machine-readable facts for this change. Validated by `node tools/specs.mjs check`.
+
+task_code: DEMO-1
+type: Modify
+title: Throttle password-reset requests + add a rate limit
+status: in-dev
+acceptance_stage: happy
+
+owner: ""
+jira_url: null
+created: 2026-08-19
+
+depends_on:
+  - ACCOUNT-password-reset

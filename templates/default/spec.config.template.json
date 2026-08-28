@@ -1,0 +1,14 @@
+{
+  "app": "app-example",
+  "language": "en",
+  "template": "default@1.0.0",
+  "roles": ["ba", "dev", "tester"],
+  "domains": ["ACCOUNT", "BILLING", "DASHBOARD"],
+  "statuses": ["draft", "reviewed", "ready-for-dev", "implemented", "live", "needs-update", "deprecated"],
+  "shipped_statuses": ["implemented", "live"],
+  "change_types": ["Add", "Modify", "Remove", "Fix"],
+  "change_statuses": ["proposed", "in-dev", "merged", "archived"],
+  "acceptance_stages": ["happy", "full"],
+  "repos": ["web", "api"],
+  "helpdoc": { "profile": "markdown" }
+}

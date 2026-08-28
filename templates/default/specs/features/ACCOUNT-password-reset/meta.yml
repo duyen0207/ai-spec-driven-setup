@@ -1,0 +1,30 @@
+# Machine-readable facts for this feature. Validated by `node tools/specs.mjs check`.
+
+id: ACCOUNT-password-reset
+app: app-example
+domain: ACCOUNT
+title: Password reset via emailed one-time link
+
+status: live
+origin: reverse-engineered
+acceptance_stage: full
+confidence: high
+
+owner: ""
+jira_url: null
+created: 2026-08-19
+updated: 2026-08-19
+
+history:
+  - "2026-08-19 · — · reverse-engineered from code (created)"
+
+design: null
+ui: null
+
+depends_on: []
+pending_changes:
+  - "DEMO-1 · changes/Modify-DEMO-1-throttle-reset-requests · throttle reset requests + rate limit"
+
+related_code:
+  - web:src/routes/account/password-reset.*
+  - api:src/modules/auth/password-reset.*
